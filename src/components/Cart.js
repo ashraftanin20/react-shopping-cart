@@ -40,26 +40,26 @@ export default class Cart extends Component {
         }
       <div>
         <div className="cart">
-            <ul className="cart-items">
-                {cartItems.map(item => (
-                    <li key={item._id}>
-                        <div>
-                            <img src={item.image} alt={item.title} />
-                        </div>
-                        <div>
-                            <div>{item.title}</div>
-                            <div className="right">
-                                {formatCurrency(item.price)}  X {item.count} {" "}
-                                <button 
-                                    className="button"
-                                     onClick={() => this.props.removeFromCart(item)} 
-                                >Remove
-                                </button>
-                            </div> 
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                <ul className="cart-items">
+                    {cartItems.map(item => (
+                        <li key={item._id} className="animated">
+                            <div>
+                                <img src={item.image} alt={item.title} />
+                            </div>
+                            <div>
+                                <div>{item.title}</div>
+                                <div className="right">
+                                    {formatCurrency(item.price)}  X {item.count} {" "}
+                                    <button 
+                                        className="button"
+                                        onClick={() => this.props.removeFromCart(item)} 
+                                    >Remove
+                                    </button>
+                                </div> 
+                            </div>
+                        </li>
+                    ))}
+                </ul>
         </div>
         
         {cartItems.length !== 0 && (
@@ -101,7 +101,9 @@ export default class Cart extends Component {
                     </form>
                 </div>
             )}
+            
             </div>
+            
         )}
 
       </div>
