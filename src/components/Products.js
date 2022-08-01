@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 import formatCurrency from '../utils';
 import Modal from 'react-modal';
+import { connect } from 'react-redux/es/exports';
+import { fetchProducts } from '../actions/productActions';
 
-export default class products extends Component {
+
+
+class products extends Component {
+    
     constructor (props) {
         super(props);
         this.state = {
             product: null,
         };
+        
+    }
+    
+    componentDidMount() {
+        this.props.fetchProducts();
     }
 
     openModel= (product) => {
@@ -23,6 +33,9 @@ export default class products extends Component {
     const { product } = this.state;
     return (
       <div>
+        {!this.props.products ? (
+            <div>Loading...</div>
+        ) : (
             <ul className="products">
                 {this.props.products.map(product => (
                     <li key={product._id}>
@@ -39,6 +52,8 @@ export default class products extends Component {
                     </li>
                 ))}
             </ul>
+        )
+    }
       
         {product && (
             <Modal isOpen={true} onRequestClose={this.closeModal}
@@ -84,3 +99,7 @@ export default class products extends Component {
     )
   }
 }
+
+export default connect((state) => ({products: state.products.items}), {
+    fetchProducts,
+})(products);
