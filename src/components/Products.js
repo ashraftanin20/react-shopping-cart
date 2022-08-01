@@ -1,26 +1,85 @@
 import React, { Component } from 'react'
-import formatCurrency from '../utils'
+import formatCurrency from '../utils';
+import Modal from 'react-modal';
 
 export default class products extends Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            product: null,
+        };
+    }
+
+    openModel= (product) => {
+        this.setState({
+            product
+        });
+    };
+
+    closeMode = () => {
+        this.setState ({ product: null });
+    };
   render() {
+    const { product } = this.state;
     return (
       <div>
-        <ul className="products">
-            {this.props.products.map(product => (
-                <li key={product._id}>
-                    <div className="product">
-                        <a href={"#" + product._id}>
-                            <img src={product.image} alt={product.title}></img>
-                            <p>{product.title}</p>
-                        </a>
-                        <div className="product-price">
-                            <div>{formatCurrency(product.price)}</div>
-                            <button onClick={() => this.props.addToCart(product)} className="button primary">Add To Cart</button>
+            <ul className="products">
+                {this.props.products.map(product => (
+                    <li key={product._id}>
+                        <div className="product">
+                            <a href={"#" + product._id} onClick={() => this.openModel(product)}>
+                                <img src={product.image} alt={product.title}></img>
+                                <p>{product.title}</p>
+                            </a>
+                            <div className="product-price">
+                                <div>{formatCurrency(product.price)}</div>
+                                <button onClick={() => this.props.addToCart(product)} className="button primary">Add To Cart</button>
+                            </div>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+      
+        {product && (
+            <Modal isOpen={true} onRequestClose={this.closeModal}
+                    ariaHideApp={false} >
+                <div className="zoom">
+                    <button className="close-modal" onClick={this.closeMode}>
+                        X
+                    </button>
+                    <div className="product-details">
+                        <img src={product.image} alt={product.title}></img>
+                        <div className="product-details-description">
+                            <p>
+                                <strong>{product.title}</strong>
+                            </p>
+                            <p>{product.description}</p>
+                            <p>
+                                Available Sizes: {" "}
+                                {product.availableSizes.map((x) => (
+                                    <span key={x}>
+                                        {" "}
+                                        <button className="button">{x}</button>
+                                    </span>
+                                ))}
+                            </p>
+                            <div className="product-price">
+                                <div>
+                                    {formatCurrency(product.price)}
+                                </div>
+                                <button className="button primary" onClick={() => {
+                                    this.props.addToCart(product);
+                                    this.closeModal();
+                                }}
+                                >
+                                    Add To Cart
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </li>
-            ))}
-        </ul>
+                </div>
+            </Modal>
+        )}
       </div>
     )
   }
