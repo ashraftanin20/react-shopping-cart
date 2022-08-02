@@ -52,6 +52,7 @@ class Cart extends Component {
             <ReactModal
                 isOpen={true}
                 onRequestClose={this.closeModal}
+                ariaHideApp={false}
             >
                 <div className="zoom">
                     <button className="close-modal" onClick={this.closeModal} >X</button>
@@ -71,7 +72,7 @@ class Cart extends Component {
                                 <div>Address:</div>
                                 <div>{order.address}</div>
                             </li>
-                            <li>
+                            <li key="date">
                                 <div>Date:</div>
                                 <div>{order.createdAt}</div>
                             </li>
@@ -82,7 +83,7 @@ class Cart extends Component {
                             <li>
                                 <div>Cart Items:</div>
                                 <div>{order.cartItems.map((x) => (
-                                    <div>
+                                    <div key={x.count}>
                                         {x.count} {" x "} {x.title}{" "}
                                     </div>
                                     ))}
