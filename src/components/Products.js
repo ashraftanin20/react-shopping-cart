@@ -27,7 +27,7 @@ class Products extends Component {
         });
     };
 
-    closeMode = () => {
+    closeModal = () => {
         this.setState ({ product: null });
     };
   render() {
@@ -60,7 +60,7 @@ class Products extends Component {
             <Modal isOpen={true} onRequestClose={this.closeModal}
                     ariaHideApp={false} >
                 <div className="zoom">
-                    <button className="close-modal" onClick={this.closeMode}>
+                    <button className="close-modal" onClick={this.closeModal}>
                         X
                     </button>
                     <div className="product-details">
