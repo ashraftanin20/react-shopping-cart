@@ -3,10 +3,11 @@ import formatCurrency from '../utils';
 import Modal from 'react-modal';
 import { connect } from 'react-redux/es/exports';
 import { fetchProducts } from '../actions/productActions';
+import { addToCart } from '../actions/cartActions';
 
 
 
-class products extends Component {
+class Products extends Component {
     
     constructor (props) {
         super(props);
@@ -100,6 +101,10 @@ class products extends Component {
   }
 }
 
-export default connect((state) => ({products: state.products.filteredItems}), {
+export default connect(
+    (state) => ({products: state.products.filteredItems}),
+ {
     fetchProducts,
-})(products);
+    addToCart,
+    }
+)(Products);
