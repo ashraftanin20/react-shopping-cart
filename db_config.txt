@@ -1,1 +1,0 @@
-mongodb+srv://react-shopping-cart-test:DueXuMK58910gfIM@cluster0.7thdk.mongodb.net/?retryWrites=true&w=majority
